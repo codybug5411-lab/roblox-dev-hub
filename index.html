@@ -6,26 +6,39 @@
 <style>
 body {
 margin: 0;
-background: #0a0a12;
-color: white;
 font-family: Arial;
+background: linear-gradient(135deg, #0a0a12, #11112a);
+color: white;
+}
+
+.nav {
+padding: 15px 25px;
+background: #0f0f1a;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.logo {
+font-weight: bold;
+color: #4c6fff;
 }
 
 .container {
-max-width: 700px;
-margin: 50px auto;
+max-width: 800px;
+margin: 60px auto;
 padding: 20px;
 }
 
 .card {
-background: #151525;
-padding: 20px;
+background: rgba(255,255,255,0.05);
+padding: 25px;
 border-radius: 15px;
-box-shadow: 0 0 20px rgba(0,0,0,0.4);
+backdrop-filter: blur(10px);
 }
 
 h1 {
-margin-bottom: 5px;
+margin-top: 0;
 }
 
 input, select {
@@ -34,21 +47,20 @@ padding: 12px;
 margin-top: 10px;
 border-radius: 10px;
 border: none;
-outline: none;
 background: #0f0f1a;
 color: white;
 }
 
 button {
-margin-top: 10px;
 width: 100%;
+margin-top: 10px;
 padding: 12px;
 border: none;
 border-radius: 10px;
 background: #4c6fff;
 color: white;
-cursor: pointer;
 font-weight: bold;
+cursor: pointer;
 }
 
 button:hover {
@@ -64,30 +76,24 @@ min-height: 80px;
 white-space: pre-wrap;
 }
 
-.history {
-margin-top: 20px;
+.tagline {
 opacity: 0.8;
-font-size: 14px;
-}
-
-.item {
-padding: 5px 0;
-border-bottom: 1px solid #222;
-}
-
-.small {
-font-size: 12px;
-opacity: 0.7;
+margin-bottom: 15px;
 }
 </style>
 </head>
 
 <body>
 
+<div class="nav">
+<div class="logo">Roblox Dev Hub</div>
+<div>AI Tools for Roblox Creators</div>
+</div>
+
 <div class="container">
 <div class="card">
-<h1>Roblox Dev Hub</h1>
-<div class="small">AI-style tool for Roblox creators</div>
+<h1>Build Roblox Games Faster</h1>
+<div class="tagline">Generate scripts, ideas, and systems instantly</div>
 
 <select id="type">
 <option value="idea">Game Idea</option>
@@ -96,22 +102,15 @@ opacity: 0.7;
 <option value="economy">Economy Balance</option>
 </select>
 
-<input id="input" placeholder="Type your idea... (e.g. pet simulator, sword game, etc)">
+<input id="input" placeholder="Type your idea (e.g. zombie survival, pet sim, sword game)">
 
 <button onclick="generate()">Generate</button>
 
 <div class="output" id="output">Your results will appear here...</div>
-
-<div class="history">
-<b>History</b>
-<div id="history"></div>
-</div>
 </div>
 </div>
 
 <script>
-let history = [];
-
 function generate() {
 let type = document.getElementById("type").value;
 let input = document.getElementById("input").value;
@@ -120,32 +119,22 @@ let output = document.getElementById("output");
 let result = "";
 
 if (type === "idea") {
-result = "Game Idea: A " + input + " simulator where players upgrade tools, unlock zones, and collect rare items.";
+result = "Game Idea:\nA " + input + " game where players upgrade, unlock zones, and collect rare items.";
 }
 
 if (type === "script") {
-result = "Script System: " + input + " system using leaderstats + remote events + datastore saving.";
+result = "Script System:\n" + input + " system using leaderstats + RemoteEvents + DataStore saving.";
 }
 
 if (type === "pets") {
-result = "Pet Names for " + input + ": Neon Fox, Crystal Wolf, Shadow Dragon, Cosmic Bunny, Lava Tiger";
+result = "Pet Names:\nNeon Fox, Crystal Wolf, Shadow Dragon, Cosmic Bunny, Lava Tiger";
 }
 
 if (type === "economy") {
-result = "Economy Balance: Start cheap upgrades, exponential scaling (x1.5–x2 per upgrade), rebirth resets with multiplier.";
+result = "Economy Balance:\nStart cheap upgrades, exponential scaling, rebirth multiplier system.";
 }
 
 output.innerText = result;
-
-history.unshift(result);
-if (history.length > 5) history.pop();
-
-renderHistory();
-}
-
-function renderHistory() {
-let h = document.getElementById("history");
-h.innerHTML = history.map(item => `<div class='item'>${item}</div>`).join("");
 }
 </script>
 
