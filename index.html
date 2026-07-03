@@ -1,140 +1,168 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Roblox Dev Hub</title>
+    <title>Roblox Dev Hub</title>
 
-<style>
-body {
-margin: 0;
-font-family: Arial;
-background: linear-gradient(135deg, #0a0a12, #11112a);
-color: white;
-}
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            color: white;
+            background: radial-gradient(circle at top, #1b1b3a, #0a0a12 60%);
+        }
 
-.nav {
-padding: 15px 25px;
-background: #0f0f1a;
-display: flex;
-justify-content: space-between;
-align-items: center;
-}
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 25px;
+            background: rgba(20,20,40,0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
 
-.logo {
-font-weight: bold;
-color: #4c6fff;
-}
+        .logo {
+            font-weight: bold;
+            color: #7c5cff;
+            text-shadow: 0 0 10px rgba(124,92,255,0.6);
+        }
 
-.container {
-max-width: 800px;
-margin: 60px auto;
-padding: 20px;
-}
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
 
-.card {
-background: rgba(255,255,255,0.05);
-padding: 25px;
-border-radius: 15px;
-backdrop-filter: blur(10px);
-}
+        .card {
+            background: rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 18px;
+            margin-top: 20px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 0 25px rgba(0,0,0,0.4);
+        }
 
-h1 {
-margin-top: 0;
-}
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
 
-input, select {
-width: 100%;
-padding: 12px;
-margin-top: 10px;
-border-radius: 10px;
-border: none;
-background: #0f0f1a;
-color: white;
-}
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6a5cff, #4c6fff);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
 
-button {
-width: 100%;
-margin-top: 10px;
-padding: 12px;
-border: none;
-border-radius: 10px;
-background: #4c6fff;
-color: white;
-font-weight: bold;
-cursor: pointer;
-}
+        button:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 15px rgba(76,111,255,0.6);
+        }
 
-button:hover {
-background: #3a56cc;
-}
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 12px;
+            border: none;
+            background: rgba(0,0,0,0.4);
+            color: white;
+            outline: none;
+        }
 
-.output {
-margin-top: 20px;
-background: #0f0f1a;
-padding: 15px;
-border-radius: 10px;
-min-height: 80px;
-white-space: pre-wrap;
-}
+        .output {
+            margin-top: 15px;
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 12px;
+            min-height: 120px;
+            white-space: pre-wrap;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
 
-.tagline {
-opacity: 0.8;
-margin-bottom: 15px;
-}
-</style>
+        .subtitle {
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="nav">
-<div class="logo">Roblox Dev Hub</div>
-<div>AI Tools for Roblox Creators</div>
+    <div class="logo">⚡ Roblox Dev Hub</div>
+    <div class="subtitle">Build faster. Create smarter.</div>
 </div>
 
 <div class="container">
-<div class="card">
-<h1>Build Roblox Games Faster</h1>
-<div class="tagline">Generate scripts, ideas, and systems instantly</div>
 
-<select id="type">
-<option value="idea">Game Idea</option>
-<option value="script">Script System</option>
-<option value="pets">Pet Names</option>
-<option value="economy">Economy Balance</option>
-</select>
+    <div class="card">
+        <h2>Tool Selection</h2>
+        <div class="subtitle">Choose what you want to generate</div>
 
-<input id="input" placeholder="Type your idea (e.g. zombie survival, pet sim, sword game)">
+        <div class="grid">
+            <button onclick="setTool('economy')">💰 Economy</button>
+            <button onclick="setTool('idea')">🎮 Game Ideas</button>
+            <button onclick="setTool('xp')">📊 XP Curve</button>
+            <button onclick="setTool('script')">🧱 Scripts</button>
+        </div>
+    </div>
 
-<button onclick="generate()">Generate</button>
+    <div class="card">
+        <h2>Input</h2>
+        <input id="input" placeholder="Type something like: zombie simulator">
+        <button onclick="generate()">Generate</button>
+    </div>
 
-<div class="output" id="output">Your results will appear here...</div>
-</div>
+    <div class="card">
+        <h2>Output</h2>
+        <div class="output" id="output">Your result will appear here...</div>
+    </div>
+
 </div>
 
 <script>
+let tool = "economy";
+
+function setTool(t) {
+    tool = t;
+    document.getElementById("output").innerText = "Selected: " + t;
+}
+
 function generate() {
-let type = document.getElementById("type").value;
-let input = document.getElementById("input").value;
-let output = document.getElementById("output");
+    let input = document.getElementById("input").value;
+    let output = document.getElementById("output");
 
-let result = "";
+    if (tool === "economy") {
+        output.innerText =
+        "💰 Economy System\n\nBase: " + input +
+        "\nScaling: x1.5 per upgrade\nRebirth bonus: +10% per rebirth";
+    }
 
-if (type === "idea") {
-result = "Game Idea:\nA " + input + " game where players upgrade, unlock zones, and collect rare items.";
-}
+    if (tool === "idea") {
+        output.innerText =
+        "🎮 Game Idea\n\nA " + input + " game where players upgrade tools, unlock zones, and collect rare items.";
+    }
 
-if (type === "script") {
-result = "Script System:\n" + input + " system using leaderstats + RemoteEvents + DataStore saving.";
-}
+    if (tool === "xp") {
+        output.innerText =
+        "📊 XP Curve\n\nXP = level² * 100\nProgress slows over time for better retention.";
+    }
 
-if (type === "pets") {
-result = "Pet Names:\nNeon Fox, Crystal Wolf, Shadow Dragon, Cosmic Bunny, Lava Tiger";
-}
-
-if (type === "economy") {
-result = "Economy Balance:\nStart cheap upgrades, exponential scaling, rebirth multiplier system.";
-}
-
-output.innerText = result;
+    if (tool === "script") {
+        output.innerText =
+        "🧱 Script System\n\nUse Leaderstats + DataStore + RemoteEvents for:\n" + input;
+    }
 }
 </script>
 
